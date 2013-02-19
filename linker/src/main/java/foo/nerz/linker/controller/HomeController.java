@@ -49,18 +49,19 @@ public class HomeController {
      * Handles request for adding two numbers
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody boolean add(@RequestParam(value="url", required=true) String url,
+    public @ResponseBody void add(@RequestParam(value="urll", required=true) String url,
     							@RequestParam(value="title", required=true) String title,
-    							@RequestParam(value="readed", required=true) boolean readed,
+//    							@RequestParam(value="readed", required=true) boolean readed,
     							Model model) {
 		logger.debug("Received request to add two numbers");
 		
 		// Delegate to service to do the actual adding
-		linkDao.addLink(new Link(url, title, readed));
+		linkDao.addLink(new Link(url, title, false));
 		
 		// @ResponseBody will automatically convert the returned value into JSON format
 		// You must have Jackson in your classpath
-		return true;
+//		
+System.out.println("Fatto!!");
 	}
 	
 }

@@ -26,7 +26,7 @@ public class LinkDao {
 	public void addLink(Link p) {
 		
 		sessionFactory.getCurrentSession().save(p);
-				
+				System.out.println("inserito");
 	}
 	
 	@Transactional
