@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import foo.nerz.linker.dao.LinkDao;
+import foo.nerz.linker.entity.Link;
 
 /**
  * Handles requests for the application home page.
@@ -39,6 +42,25 @@ public class HomeController {
 //		model.addAttribute("serverTime", formattedDate );
 		
 		return "index";
+	}
+	
+	
+	/**
+     * Handles request for adding two numbers
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public @ResponseBody boolean add(@RequestParam(value="url", required=true) String url,
+    							@RequestParam(value="title", required=true) String title,
+    							@RequestParam(value="readed", required=true) boolean readed,
+    							Model model) {
+		logger.debug("Received request to add two numbers");
+		
+		// Delegate to service to do the actual adding
+		linkDao.addLink(new Link(url, title, readed));
+		
+		// @ResponseBody will automatically convert the returned value into JSON format
+		// You must have Jackson in your classpath
+		return true;
 	}
 	
 }

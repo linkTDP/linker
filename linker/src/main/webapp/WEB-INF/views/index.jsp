@@ -23,8 +23,8 @@
 			<div class="space"></div>
 			<div id="menu"></div>
 			<div id="content"></div>
-		</div>-->
-		<div class="container-fluid" id="prova">
+		</div>-->	
+		<div class="container-fluid" id="home">
 			<div class="row-fluid">
 			    <div class="span12">
 			      <!--Header content-->
@@ -38,8 +38,9 @@
 			    <div class="span2">
 			      <!--Sidebar content-->
 			    </div>
-			    <div class="span10">
+			    <div class="span10" id="link-display">
 			      <!--Body content-->
+
 			    </div>
 		  </div>
 		</div>

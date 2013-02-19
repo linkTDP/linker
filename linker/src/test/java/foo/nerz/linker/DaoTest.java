@@ -1,5 +1,7 @@
 package foo.nerz.linker;
 
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.apache.commons.logging.Log;
@@ -32,7 +34,19 @@ public class DaoTest {
 	
 	@Test
 	public void testLinkDao(){
-		linkDao.addPerson(new Link("sasa","afafda",true));
+		linkDao.addLink(new Link("sasa","afafda",true));
+		
+		linkDao.addLink(new Link("sasa","afafda",true));
+		
+		linkDao.addLink(new Link("sasa","afafda",true));
+		
+		linkDao.addLink(new Link("sasa","afafda",true));
+		
+		List<Link> result= linkDao.getAll();
+		
+		for(Link current : result ){
+			System.out.println(current.getPid());
+		}
 	}
 	
 }
