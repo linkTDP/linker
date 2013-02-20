@@ -17,7 +17,6 @@ function model(button, div){
 		}
 		else{
 			var current=new link(jq('#address').val(), jq('#title').val());
-			var completed=false;
 			jq(function() {
 				// Call a URL and pass two arguments
 				// Also pass a call back function
@@ -37,9 +36,7 @@ function model(button, div){
 						  			if(data){
 						  				myLink.push(current);
 										new linkItem(jq('#link-display'), myLink[myLink.length-1]);
-						  			}
-						  			
-						  			
+						  			}	
 							}
 						  	, 'json');
 			});

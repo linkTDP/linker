@@ -1,7 +1,10 @@
 package foo.nerz.linker.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -76,6 +79,29 @@ public class HomeController {
 		System.out.println("Fatto!!");
 		
 		return createJsonResponse( res );
+
+	}
+    
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<String> getAll(
+    							Model model) {
+		logger.debug("Received request to add two numbers");
+		
+		// Delegate to service to do the actual adding
+		List<Link> result=linkDao.getAll();
+
+		List<Link> list = Collections.synchronizedList(new ArrayList<Link>() );
+		
+		for(Link current : result){
+			list.add(current);
+		}
+		
+		// @ResponseBody will automatically convert the returned value into JSON format
+		// You must have Jackson in your classpath
+		
+		System.out.println("Fatto!!");
+		
+		return createJsonResponse( list );
 
 	}
     
