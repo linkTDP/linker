@@ -1,9 +1,7 @@
 package foo.nerz.linker.controller;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,18 +65,14 @@ public class HomeController {
 		logger.debug("Received request to add two numbers");
 		
 		// Delegate to service to do the actual adding
-		linkDao.addLink(new Link(url, title, readed));
-		
-		boolean res=true;
-		
-		
-		
+		int id=linkDao.addLink(new Link(url, title, readed));
+
 		// @ResponseBody will automatically convert the returned value into JSON format
 		// You must have Jackson in your classpath
 		
 		System.out.println("Fatto!!");
 		
-		return createJsonResponse( res );
+		return createJsonResponse( id );
 
 	}
     
@@ -102,6 +96,27 @@ public class HomeController {
 		System.out.println("Fatto!!");
 		
 		return createJsonResponse( list );
+
+	}
+    
+	/**
+     * Handles request for adding two numbers
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<String> add(@RequestParam(value="id", required=true) int id,
+    							
+    							Model model) {
+		logger.debug("Received request to delete "+id);
+		
+		// Delegate to service to do the actual adding
+		linkDao.deletById(id);
+
+		// @ResponseBody will automatically convert the returned value into JSON format
+		// You must have Jackson in your classpath
+		
+		System.out.println("Fatto!! cancellato "+id);
+		
+		return createJsonResponse( true );
 
 	}
     

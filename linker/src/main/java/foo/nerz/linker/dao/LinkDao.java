@@ -22,12 +22,22 @@ public class LinkDao {
 		  return sessionFactory;
 		
 		 }
+	@Transactional
+	public boolean existUrl(String url){
+		if(this.findByUrl(url).size()>0)return true;
+		else return false;
+	}
 
 	@Transactional(readOnly=false)
-	public void addLink(Link p) {
+	public int addLink(Link p) {
+		int result=-1;
+		if(!this.existUrl(p.getUrl())){
+			sessionFactory.getCurrentSession().save(p);
+			result=this.getIdfromLink(p.getUrl(), p.getTitle());
+		}
+		System.out.println("inserito - "+result);
+		return result;		
 		
-		sessionFactory.getCurrentSession().save(p);
-				System.out.println("inserito");
 	}
 	
 	@Transactional
@@ -45,12 +55,13 @@ public class LinkDao {
 	}
 	
 	@Transactional
-	public List<Link> findByUrlTitle(String url, String title){
+	public Link findByUrlTitle(String url, String title){
 		Query q=sessionFactory.getCurrentSession().createQuery("From Link where Url=:url and Title=:title");
 		q.setParameter("url", url);
 		q.setParameter("title", title);
 		List<Link> current=(List<Link>)q.list();
-		return current;
+		if(current.size()==0)return null;
+		else return current.get(0);
 	}
 	
 	@Transactional
@@ -67,11 +78,36 @@ public class LinkDao {
 	}
 	
 	@Transactional
+	public void deletById(int id){
+		Link lin=this.findById(id);
+		if(lin!=null)this.deleteByLink(lin);
+	}
+	
+	@Transactional
+	public Link findById(int id) {
+		Query q=sessionFactory.getCurrentSession().createQuery("From Link where Pid=:id");
+		q.setParameter("id", id);
+		
+		List<Link> current=(List<Link>)q.list();
+		if(current.size()==0)return null;
+		else return current.get(0);
+		
+	}
+
+	@Transactional
 	public void deleteByUrlTitle(String url, String title){
-		List<Link> result=this.findByUrlTitle(url,title);
-		for(Link current : result){
-			this.deleteByLink(current);
-		}
+		Link result=this.findByUrlTitle(url,title);
+		
+		this.deleteByLink(result);
+		
+	}
+	
+	@Transactional
+	public int getIdfromLink(String url, String title){
+		Link result=this.findByUrlTitle(url, title);
+		if(result!=null){
+			return result.getPid();
+		}else return -1;
 	}
 	
 }
