@@ -16,7 +16,8 @@ function model(button, div){
   			jq('.alert').append('<strong>Warning!</strong> Best check yo self, you re not looking too good.');				
 		}
 		else{
-			var current=new link(jq('#address').val(), jq('#title').val());
+			var current = new link(jq('#address').val(), jq('#title').val(), (myLink[myLink.length-1].id + 1) ,false);
+			console.log(current);
 			jq(function() {
 				// Call a URL and pass two arguments
 				// Also pass a call back function
@@ -34,6 +35,7 @@ function model(button, div){
 						  			console.log(data); // It's works ;)
 //						  			completed=data;
 						  			if(data){
+						  				console.log(data);
 						  				myLink.push(current);
 										new linkItem(jq('#link-display'), myLink[myLink.length-1]);
 						  			}	

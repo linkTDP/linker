@@ -17,13 +17,21 @@ jq(document).ready(function(){
 							// Assign result to the sum id
 				  			console.log(data); // It's works ;)
 				  			console.log(data.length);
-				  			console.log(data[0]);
+//				  			console.log(data[0]);
 //				  			var obj=jQuery.parseJSON(data);
 //				  			var obj=jq.parseJSON(data);
 //				  			console.log(obj.resultCount);	
+				  			for(var i = 0; i < data.length; i++) {
+				  				var linkTMP = new link(data[i].url, data[i].title, data[i].pid, data[i].read);
+				  				myLink.push(linkTMP);
+				  				new linkItem(jq('#link-display'), myLink[myLink.length-1]);
+				  			}
+				  			console.log('dimensione myLink = '+myLink.length);
 					}
 				  	, 'json');
 	});
+	
+	console.log('dimensione myLink= '+myLink.length);
 	
 	$add.click(function(){
 		new model($add, $home);
