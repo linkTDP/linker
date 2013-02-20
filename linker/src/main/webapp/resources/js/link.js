@@ -28,6 +28,11 @@ function link(address, title, id, read) {
 	this.getRead = function() {
 		return read;
 	};
+	
+	this.setId = function(id){
+		this.id = id;
+	};
+	
 }
 
 

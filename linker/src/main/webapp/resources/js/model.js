@@ -16,7 +16,7 @@ function model(button, div){
   			jq('.alert').append('<strong>Warning!</strong> Best check yo self, you re not looking too good.');				
 		}
 		else{
-			var current = new link(jq('#address').val(), jq('#title').val(), (myLink[myLink.length-1].id + 1) ,false);
+			var current = new link(jq('#address').val(), jq('#title').val(), 1 ,false);
 			console.log(current);
 			jq(function() {
 				// Call a URL and pass two arguments
@@ -32,13 +32,15 @@ function model(button, div){
 								function(data){
 									// data contains the result
 									// Assign result to the sum id
-						  			console.log(data); // It's works ;)
-//						  			completed=data;
-						  			if(data){
-						  				console.log(data);
+						  			// It's works ;)
+						  			if(data === -1){
+						  					//TODO aggiungere messaggio link già esistente
+						  				}
+					  				else {
+						  				current.setId(data);
 						  				myLink.push(current);
-										new linkItem(jq('#link-display'), myLink[myLink.length-1]);
-						  			}	
+										new linkItem(jq('#link-display'), current);
+					  				}
 							}
 						  	, 'json');
 			});
@@ -73,8 +75,21 @@ function linkItem(linkDisplayDiv, link) {
 	jq('.removeItemBtn').click(function(){
 		var title = jq(this).prev('.ass').text();
 
-		for(i = 0; i < myLink.length; i++){
+		for(var i = 0; i < myLink.length; i++){
 			if(title === myLink[i].getTitle()){
+				jq(function() {
+					// Call a URL and pass two arguments
+					// Also pass a call back function
+					// See http://api.jquery.com/jQuery.post/
+					// See http://api.jquery.com/jQuery.ajax/
+					// You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!' 
+					// See http://bugs.jquery.com/ticket/7535
+					jq.post("/linker/delete",
+								{ 	id: myLink[i].id},
+									function(data){							  			
+									}
+							  	, 'json');
+				});
 				myLink.splice(i, 1);
 			}
 		}
