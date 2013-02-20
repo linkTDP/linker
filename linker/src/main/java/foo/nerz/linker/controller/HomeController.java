@@ -7,12 +7,18 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import foo.nerz.linker.dao.LinkDao;
 import foo.nerz.linker.entity.Link;
@@ -24,6 +30,8 @@ import foo.nerz.linker.entity.Link;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	Gson gson = new Gson();
 	
 	@Autowired
 	LinkDao linkDao;
@@ -49,19 +57,35 @@ public class HomeController {
      * Handles request for adding two numbers
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody void add(@RequestParam(value="urll", required=true) String url,
+    public @ResponseBody ResponseEntity<String> add(@RequestParam(value="urll", required=true) String url,
     							@RequestParam(value="title", required=true) String title,
-//    							@RequestParam(value="readed", required=true) boolean readed,
+    							@RequestParam(value="readed", required=true) boolean readed,
     							Model model) {
 		logger.debug("Received request to add two numbers");
 		
 		// Delegate to service to do the actual adding
-		linkDao.addLink(new Link(url, title, false));
+		linkDao.addLink(new Link(url, title, readed));
+		
+		boolean res=true;
+		
+		
 		
 		// @ResponseBody will automatically convert the returned value into JSON format
 		// You must have Jackson in your classpath
-//		
-System.out.println("Fatto!!");
+		
+		System.out.println("Fatto!!");
+		
+		return createJsonResponse( res );
+
 	}
+    
+    
+    private ResponseEntity<String> createJsonResponse( Object o )
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String json = gson.toJson( o );
+        return new ResponseEntity<String>( json, headers, HttpStatus.CREATED );
+    }
 	
 }

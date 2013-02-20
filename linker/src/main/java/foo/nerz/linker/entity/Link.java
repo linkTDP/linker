@@ -24,6 +24,16 @@ public class Link {
 	public Link() {
 		super();
 	}
+	
+	
+	
+	public Link(String url) {
+		super();
+		this.url = url;
+	}
+
+
+
 	public Link(String url, String title, boolean readed) {
 		super();
 		this.url = url;
