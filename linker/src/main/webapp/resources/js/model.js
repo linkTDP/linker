@@ -17,7 +17,6 @@ function model(button, div){
 		}
 		else{
 			var current=new link(jq('#address').val(), jq('#title').val());
-//			var completed=0;
 			jq(function() {
 				// Call a URL and pass two arguments
 				// Also pass a call back function
@@ -27,16 +26,25 @@ function model(button, div){
 				// See http://bugs.jquery.com/ticket/7535
 				jq.post("/linker/add",
 							{ 	urll:  current.getAddress(),
-						  		title:  current.getTitle()},
-//						  		readed: current.getRead()},
+						  		title:  current.getTitle(),
+						  		readed: current.getRead()},
 								function(data){
 									// data contains the result
 									// Assign result to the sum id
-//									completed=data;
-							});
+						  			console.log(data); // It's works ;)
+//						  			completed=data;
+						  			if(data){
+						  				myLink.push(current);
+										new linkItem(jq('#link-display'), myLink[myLink.length-1]);
+						  			}	
+							}
+						  	, 'json');
 			});
-				myLink.push(current);
-				new linkItem(jq('#link-display'), myLink[myLink.length-1]);
+//			console.log(completed);
+//			if(completed){
+//				myLink.push(current);
+//				new linkItem(jq('#link-display'), myLink[myLink.length-1]);
+//			}
 			div.removeClass('blackOverlay');
 			jq('#model').remove();
 			button.prop('disabled', false);

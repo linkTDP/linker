@@ -1,5 +1,7 @@
 package foo.nerz.linker;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import junit.framework.Assert;
@@ -34,19 +36,50 @@ public class DaoTest {
 	
 	@Test
 	public void testLinkDao(){
-		linkDao.addLink(new Link("sasa","afafda",true));
 		
-		linkDao.addLink(new Link("sasa","afafda",true));
+		linkDao.addLink(new Link("1","afafda",true));
 		
-		linkDao.addLink(new Link("sasa","afafda",true));
+		linkDao.addLink(new Link("2","aaaaa",true));
 		
-		linkDao.addLink(new Link("sasa","afafda",true));
+		linkDao.addLink(new Link("3","llll",true));
+		
+		linkDao.addLink(new Link("3","afafda",true));
 		
 		List<Link> result= linkDao.getAll();
 		
-		for(Link current : result ){
-			System.out.println(current.getPid());
-		}
+		assertTrue(result.size()>3);
+		
+		int size=result.size();
+		
+		result=linkDao.findByUrl("3");
+		
+		assertTrue(result.size()==2);
+		
+		result=linkDao.findByUrlTitle("3", "llll");
+		
+		assertTrue(result.size()==1);
+		
+		linkDao.deleteByUrlTitle("3", "llll");
+		
+		result=linkDao.findByUrlTitle("3", "llll");
+		
+		assertTrue(result.size()==0);
+		
+		linkDao.deleteByUrl("3");
+		
+		result=linkDao.findByUrl("3");
+		
+		assertTrue(result.size()==0);
+		
+		linkDao.deleteByUrl("1");
+		
+		linkDao.deleteByUrl("2");
+		
+		result= linkDao.getAll();
+		
+		assertTrue(result.size()==(size-4));
+		
+		
 	}
 	
 }
