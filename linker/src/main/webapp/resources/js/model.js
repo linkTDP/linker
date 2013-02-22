@@ -86,11 +86,12 @@ function linkItem(linkDisplayDiv, link) {
 					// See http://bugs.jquery.com/ticket/7535
 					jq.post("/linker/delete",
 								{ 	id: myLink[i].id},
-									function(data){							  			
+									function(data){	
+										myLink.splice(i, 1);
 									}
 							  	, 'json');
 				});
-				myLink.splice(i, 1);
+				
 			}
 		}
 		
