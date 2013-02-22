@@ -3,9 +3,9 @@ package foo.nerz.linker.dao;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
+import foo.nerz.linker.entity.Users;
 
 import foo.nerz.linker.entity.Link;
 
@@ -108,6 +108,14 @@ public class LinkDao {
 		if(result!=null){
 			return result.getPid();
 		}else return -1;
+	}
+	
+	@Transactional
+	public List<Link> getByUser(Users u){
+		Query q=sessionFactory.getCurrentSession().createQuery("From Link where Username=:users");
+		q.setParameter("users", u.getUsername());
+		List<Link> current=(List<Link>)q.list();
+		return current;
 	}
 	
 }

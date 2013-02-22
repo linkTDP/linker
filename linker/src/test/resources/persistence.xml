@@ -22,8 +22,8 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<prop key="hibernate.show_sql">false</prop>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 	</bean>
@@ -35,6 +35,14 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<bean id="linkDao" class="foo.nerz.linker.dao.LinkDao" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="userDao" class="foo.nerz.linker.dao.UserDao" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="authDao" class="foo.nerz.linker.dao.AuthoritiesDao" >
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

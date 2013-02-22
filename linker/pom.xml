@@ -9,11 +9,27 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<org.springframework-version>3.2.1.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.0.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>3.2.0.M1</version>
+ </dependency> 
+ <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>3.2.0.M1</version>
+  </dependency> 
+  <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>3.2.0.M1</version>
+  </dependency>
+            
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -27,6 +43,12 @@
 				 </exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-test</artifactId>
+	<version>${org.springframework-version}</version>
+</dependency>
+            
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -128,6 +150,11 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+<!-- 		<dependency> -->
+<!--     <groupId>cglib</groupId> -->
+<!--     <artifactId>cglib</artifactId> -->
+<!--     <version>2.2.2</version> -->
+<!-- </dependency> -->
 		
 		        <!-- Persistence Management -->
         <dependency> <!-- Apache BasicDataSource -->
@@ -209,4 +236,18 @@
 	        </plugin>
         </plugins>
     </build>
+    <repositories>
+<repository>
+    <id>repository.springsource.milestone</id>
+    <name>SpringSource Milestone Repository</name>
+    <url>http://repo.springsource.org/milestone</url>
+</repository>
+<repository>
+    <id>repository.springsource.snapshot</id>
+    <name>SpringSource Snapshot Repository</name>
+    <url>http://repo.springsource.org/snapshot</url>
+</repository>
+      </repositories>
+      
+    
 </project>

@@ -12,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import com.google.gson.Gson;
 
 import foo.nerz.linker.dao.LinkDao;
 import foo.nerz.linker.entity.Link;
+
+import foo.nerz.linker.entity.Users;
 
 /**
  * Handles requests for the application home page.
@@ -64,8 +68,9 @@ public class HomeController {
     							Model model) {
 		logger.debug("Received request to add two numbers");
 		
+
 		// Delegate to service to do the actual adding
-		int id=linkDao.addLink(new Link(url, title, readed));
+		int id=linkDao.addLink(new Link(url, title, readed,getUsers()));
 
 		// @ResponseBody will automatically convert the returned value into JSON format
 		// You must have Jackson in your classpath
@@ -82,11 +87,12 @@ public class HomeController {
 		logger.debug("Received request to add two numbers");
 		
 		// Delegate to service to do the actual adding
-		List<Link> result=linkDao.getAll();
+		List<Link> result=linkDao.getByUser(getUsers());
 
 		List<Link> list = Collections.synchronizedList(new ArrayList<Link>() );
 		
 		for(Link current : result){
+			current.setUsername(null);
 			list.add(current);
 		}
 		
@@ -108,12 +114,10 @@ public class HomeController {
     							Model model) {
 		logger.debug("Received request to delete "+id);
 		
-		// Delegate to service to do the actual adding
+		//TODO controllo sull utente
+		
 		linkDao.deletById(id);
 
-		// @ResponseBody will automatically convert the returned value into JSON format
-		// You must have Jackson in your classpath
-		
 		System.out.println("Fatto!! cancellato "+id);
 		
 		return createJsonResponse( true );
@@ -127,6 +131,13 @@ public class HomeController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         String json = gson.toJson( o );
         return new ResponseEntity<String>( json, headers, HttpStatus.CREATED );
+    }
+    
+    private Users getUsers(){
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    String name = user.getUsername(); //get logged in username
+	    Users u=new Users(user.getUsername(),user.getPassword(),user.isEnabled());
+	    return u;
     }
 	
 }

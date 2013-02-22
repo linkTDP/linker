@@ -15,8 +15,7 @@
 	<context:annotation-config />
 	
 	<import resource="classpath:persistence.xml"/>
-<!-- 	<import resource="classpath:security-app-context.xml"/> -->
-
+	<import resource="classpath:servlet-context.xml"/>
 	
 	
 	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
