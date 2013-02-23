@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html lang="en" class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
@@ -14,9 +18,9 @@
         <link rel="stylesheet" href="/linker/resources/css/login/login.css" />
         <link rel="stylesheet" href="/linker/resources/css/login/animate-custom.css" />
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Julius+Sans+One'>
-        <script src="/linker/resources/js//login/jQuery.js"></script>
-        <script src="/linker/resources/js//login/mailcheck.js"></script>
-        <script src="/linker/resources/js//login/login.js"></script>
+        <script src="/linker/resources/js/jQuery.js"></script>
+        <script src="/linker/resources/js/login/mailcheck.js"></script>
+        <script src="/linker/resources/js/login/login.js"></script>
     </head>
     <body>
         <div class="container">
@@ -29,16 +33,16 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="j_spring_security_check" autocomplete="on" method="POST"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your email or username </label>
-                                    <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
+                                    <input id="username" name="j_username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
                                     <div id="hintlogin"></div>
                                 </p>
                                 <p> 
                                     <label for="password" class="youpasswd" data-icon="p"> Your password </label>
-                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
+                                    <input id="password" name="j_password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
                                 </p>
                                 <p class="keeplogin"> 
                                     <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping"/> 
@@ -46,7 +50,7 @@
                                     <label class="icon-task" > </label>
                                 </p>
                                 <p class="login button"> 
-                                    <input type="submit" value="Login" /> 
+                                    <input name="submit" type="submit" value="submit" /> 
                                 </p>
                                 <p class="change_link">
                                     Not a member yet ?
@@ -56,7 +60,7 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="newUser" autocomplete="on" commandName="newUser" method="POST"> 
                                 <h1> Sign up </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>

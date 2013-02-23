@@ -32,6 +32,7 @@ import foo.nerz.linker.entity.Users;
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping("/home")
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -148,7 +149,7 @@ public class HomeController {
     private Users getUsers(){
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    String name = user.getUsername(); //get logged in username
-	    Users u=new Users(user.getUsername(),user.getPassword(),user.isEnabled());
+	    Users u=new Users(user.getUsername(),user.getPassword(),user.isEnabled(),null);
 	    return u;
     }
 	

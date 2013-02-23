@@ -25,7 +25,7 @@ function model(button, div){
 				// See http://api.jquery.com/jQuery.ajax/
 				// You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!' 
 				// See http://bugs.jquery.com/ticket/7535
-				jq.post("/linker/add",
+				jq.post("/linker/home/add",
 							{ 	urll:  current.getAddress(),
 						  		title:  current.getTitle(),
 						  		readed: current.getRead()},
@@ -84,7 +84,7 @@ function linkItem(linkDisplayDiv, link) {
 					// See http://api.jquery.com/jQuery.ajax/
 					// You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!' 
 					// See http://bugs.jquery.com/ticket/7535
-					jq.post("/linker/delete",
+					jq.post("/linker/home/delete",
 								{ 	id: myLink[i].id},
 									function(data){	
 										myLink.splice(i, 1);

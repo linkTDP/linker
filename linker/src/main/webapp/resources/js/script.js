@@ -3,6 +3,7 @@ jq(document).ready(function(){
 	var $add = jq('#addBtn');
 	var $home = jq('#home');
 	
+	
 	jq(function() {
 		// Call a URL and pass two arguments
 		// Also pass a call back function
@@ -10,7 +11,7 @@ jq(document).ready(function(){
 		// See http://api.jquery.com/jQuery.ajax/
 		// You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!' 
 		// See http://bugs.jquery.com/ticket/7535
-		jq.post("/linker/getAll",
+		jq.post("/linker/home/getAll",
 					{},
 						function(data){
 							// data contains the result

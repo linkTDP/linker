@@ -29,6 +29,7 @@
 			    <div class="span12">
 			      <!--Header content-->
 			      	<button class="btn" id="addBtn">Add</button>
+			      	<a href="/linker/j_spring_security_logout">Logout</a>
 			      	<form class="navbar-search pull-right">
 					  <input type="text" class="search-query" placeholder="Search">
 					</form>

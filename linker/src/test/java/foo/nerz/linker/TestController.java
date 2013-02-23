@@ -44,12 +44,22 @@ public class TestController {
     
     @Test public void helloWorld() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/").accept(MediaType.ALL))
+                MockMvcRequestBuilders.get("/app/").accept(MediaType.ALL))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.post("/app/getAll").accept(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isCreated());
+//                
+                
+    }
+    
+    @Test public void login() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/getAll").accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                MockMvcRequestBuilders.get("/login").accept(MediaType.ALL))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        
+
                 
                 
     }

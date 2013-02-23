@@ -48,7 +48,7 @@ public class DaoTest {
 		
 		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
 		
-		Users u=new Users("prova", "password", true);
+		Users u=new Users("prova", "password", true,"a");
 		
 		usersDao.addUser(u);
 		
@@ -116,7 +116,7 @@ public class DaoTest {
 		
 		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
 		
-		u=new Users("prova", "password", true);
+		u=new Users("prova", "password", true,"a");
 		
 		usersDao.addUser(u);
 		
@@ -143,6 +143,22 @@ public class DaoTest {
 		assertFalse(authDao.existAuthByUser(u, "PROVA"));
 		
 		assertTrue(linkDao.getByUser(u).size()==0);
+		
+		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
+		
+		u=new Users("prova", "password", true,"a");
+		
+		usersDao.addUser(u);
+		
+		assertTrue(usersDao.existUsername(u.getUsername()));
+		
+		u.setEmail(null);
+		
+		linkDao.addLink(new Link("1","afafda",true, u));
+		
+		assertTrue(linkDao.existUrl("1"));
+		
+		linkDao.deleteByUrl("1");
 	}
 	
 	@Test
@@ -150,7 +166,7 @@ public class DaoTest {
 		
 		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
 		
-		Users u=new Users("prova", "password", true);
+		Users u=new Users("prova", "password", true,"a");
 		
 		usersDao.addUser(u);
 		
@@ -169,7 +185,7 @@ public class DaoTest {
 	public void testAuth(){
 		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
 		
-		Users u=new Users("prova", "password", true);
+		Users u=new Users("prova", "password", true,"a");
 		
 		usersDao.addUser(u);
 		
@@ -189,7 +205,7 @@ public class DaoTest {
 		
 		if(usersDao.existUsername("prova"))usersDao.deleteUserByUsername("prova");
 		
-		u=new Users("prova", "password", true);
+		u=new Users("prova", "password", true,"a");
 		
 		usersDao.addUser(u);
 		

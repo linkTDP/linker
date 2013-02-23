@@ -31,13 +31,18 @@ public class LinkDao {
 	@Transactional(readOnly=false)
 	public int addLink(Link p) {
 		int result=-1;
+		if(p.getUsername().getEmail()==null){
+			List<String> re=sessionFactory.getCurrentSession().createSQLQuery("Select email from users where username=:username").setParameter("username", p.getUsername().getUsername()).list();
+			p.getUsername().setEmail(re.get(0));
+		}
 		if(!this.existUrl(p.getUrl())){
 			sessionFactory.getCurrentSession().save(p);
 			result=this.getIdfromLink(p.getUrl(), p.getTitle());
 		}
-		System.out.println("inserito - "+result);
-		return result;		
 		
+			System.out.println("inserito - "+result);
+			return result;		
+			
 	}
 	
 	@Transactional
@@ -71,6 +76,8 @@ public class LinkDao {
 	
 	@Transactional
 	public void deleteByUrl(String url){
+		
+		//TODO controllare condizione di unicità url
 		List<Link> result=this.findByUrl(url);
 		for(Link current : result){
 			this.deleteByLink(current);
@@ -80,7 +87,7 @@ public class LinkDao {
 	@Transactional
 	public void deletById(int id){
 		Link lin=this.findById(id);
-		if(lin!=null)this.deleteByLink(lin);
+		if(lin!=null)sessionFactory.getCurrentSession().delete(lin);;
 	}
 	
 	@Transactional

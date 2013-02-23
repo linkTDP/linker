@@ -5,9 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,6 +23,8 @@ public class Users {
 	@Column(nullable=false)
 	private boolean enabled;
 	
+	private String email;
+	
 	@OneToMany(mappedBy="username",cascade=CascadeType.ALL)
 	  private List<Authorities> auth;
 	
@@ -36,11 +36,12 @@ public class Users {
 		super();
 	}
 
-	public Users(String username, String password, boolean enabled) {
+	public Users(String username, String password, boolean enabled, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
+		this.email = email;
 	}
 
 	public String getUsername() {
@@ -65,6 +66,14 @@ public class Users {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
