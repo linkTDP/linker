@@ -69,12 +69,8 @@ public class HomeController {
 		logger.debug("Received request to add two numbers");
 		
 
-		// Delegate to service to do the actual adding
 		int id=linkDao.addLink(new Link(url, title, readed,getUsers()));
-
-		// @ResponseBody will automatically convert the returned value into JSON format
-		// You must have Jackson in your classpath
-		
+	
 		System.out.println("Fatto!!");
 		
 		return createJsonResponse( id );
@@ -86,7 +82,7 @@ public class HomeController {
     							Model model) {
 		logger.debug("Received request to add two numbers");
 		
-		// Delegate to service to do the actual adding
+
 		List<Link> result=linkDao.getByUser(getUsers());
 
 		List<Link> list = Collections.synchronizedList(new ArrayList<Link>() );
@@ -95,10 +91,7 @@ public class HomeController {
 			current.setUsername(null);
 			list.add(current);
 		}
-		
-		// @ResponseBody will automatically convert the returned value into JSON format
-		// You must have Jackson in your classpath
-		
+
 		System.out.println("Fatto!!");
 		
 		return createJsonResponse( list );
@@ -109,7 +102,7 @@ public class HomeController {
      * Handles request for adding two numbers
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> add(@RequestParam(value="id", required=true) int id,
+    public @ResponseBody ResponseEntity<String> delete(@RequestParam(value="id", required=true) int id,
     							
     							Model model) {
 		logger.debug("Received request to delete "+id);
@@ -119,6 +112,25 @@ public class HomeController {
 		linkDao.deletById(id);
 
 		System.out.println("Fatto!! cancellato "+id);
+		
+		return createJsonResponse( true );
+
+	}
+    
+	/**
+     * Handles request for adding two numbers
+     */
+    @RequestMapping(value = "/readed", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<String> readed(@RequestParam(value="id", required=true) int id,
+    							
+    							Model model) {
+		logger.debug("Received request to set readed "+id);
+		
+		//TODO controllo sull utente
+		
+		linkDao.readedById(id);
+
+		System.out.println("Fatto!! letto "+id);
 		
 		return createJsonResponse( true );
 

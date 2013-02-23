@@ -117,5 +117,15 @@ public class LinkDao {
 		List<Link> current=(List<Link>)q.list();
 		return current;
 	}
+
+	@Transactional
+	public void readedById(int id) {
+		Query q=sessionFactory.getCurrentSession().createQuery("From Link where pid=:id");
+		q.setParameter("id", id);
+		List<Link> current=(List<Link>)q.list();
+		Link link=current.get(0);
+		if(link.isReaded())link.setReaded(false);
+		else link.setReaded(true);
+	}
 	
 }
