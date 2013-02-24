@@ -2,6 +2,7 @@ package foo.nerz.linker.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,8 +70,9 @@ public class HomeController {
     							Model model) {
 		logger.debug("Received request to add two numbers");
 		
-
-		int id=linkDao.addLink(new Link(url, title, readed,getUsers()));
+		Date data=new Date();
+		
+		int id=linkDao.addLink(new Link(url, title, readed,getUsers(),data));
 	
 		System.out.println("Fatto!!");
 		
@@ -90,6 +92,7 @@ public class HomeController {
 		
 		for(Link current : result){
 			current.setUsername(null);
+			
 			list.add(current);
 		}
 

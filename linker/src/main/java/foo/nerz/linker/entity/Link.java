@@ -1,5 +1,7 @@
 package foo.nerz.linker.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.Type;
 
 
 
@@ -27,6 +30,9 @@ public class Link {
 	
 	private String title;
 	private boolean readed;
+	
+	@Type(type="timestamp")
+	private Date date;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="username",nullable=false)
@@ -53,6 +59,21 @@ public class Link {
 		this.readed = readed;
 		this.username = user;
 	}
+
+
+	public Link( String url, String title, boolean readed, 
+			Users username, Date date) {
+		super();
+
+		this.url = url;
+		this.title = title;
+		this.readed = readed;
+		this.date = date;
+		this.username = username;
+	}
+
+
+
 	public int getPid() {
 		return pid;
 	}
@@ -85,9 +106,13 @@ public class Link {
 	public void setUsername(Users username) {
 		this.username = username;
 	}
+		
+	public Date getDate() {
+		return date;
+	}
 
-
-
-
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 }

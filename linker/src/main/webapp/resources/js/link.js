@@ -1,8 +1,9 @@
-function link(address, title, id, read) {
+function link(address, title, id, read, date) {
 	this.address = address;
 	this.title = title;
 	this.read = read;
 	this.id = id;
+	this.Date = date;
 
 	this.setTitle = function(newTitle) {
 		this.title = newTitle;
@@ -31,6 +32,14 @@ function link(address, title, id, read) {
 	
 	this.setId = function(id){
 		this.id = id;
+	};
+	
+	this.setDate = function(date){
+		this.Date = date;
+	};
+	
+	this.getDate = function(){
+		return date;
 	};
 	
 }

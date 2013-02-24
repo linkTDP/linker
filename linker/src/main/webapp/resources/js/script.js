@@ -20,7 +20,7 @@ jq(document).ready(function(){
 				 
 				  			console.log(data.length);
 				  			for(var i = 0; i < data.length; i++) {
-				  				var linkTMP = new link(data[i].url, data[i].title, data[i].pid, data[i].read);
+				  				var linkTMP = new link(data[i].url, data[i].title, data[i].pid, data[i].read, data[i].date);
 				  				myLink.push(linkTMP);
 				  				new linkItem(jq('#link-display'), myLink[myLink.length-1]);
 				  			}

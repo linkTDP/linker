@@ -2,6 +2,7 @@ package foo.nerz.linker;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -155,6 +156,14 @@ public class DaoTest {
 		u.setEmail(null);
 		
 		linkDao.addLink(new Link("1","afafda",true, u));
+		
+		assertTrue(linkDao.existUrl("1"));
+		
+		linkDao.deleteByUrl("1");
+		
+		Date data=new Date();
+		
+		linkDao.addLink(new Link("1","afafda",true, u, data));
 		
 		assertTrue(linkDao.existUrl("1"));
 		
