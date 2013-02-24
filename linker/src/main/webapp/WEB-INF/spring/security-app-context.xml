@@ -9,7 +9,7 @@
     <http auto-config="true">  <!-- use-expressions="true" -->
         <intercept-url pattern="/home/*" access="ROLE_USER" />
 <!--         <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
-        <form-login login-page="/login" default-target-url="/home/"/>
+        <form-login login-page="/login" default-target-url="/home/" authentication-failure-url="/loginfailed"/>
         <logout logout-success-url="/login" />
     </http>
 

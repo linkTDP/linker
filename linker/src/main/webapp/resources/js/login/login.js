@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var $username = $('#usernamesignup');
 	var $signBtn = $('#signBtn');
 	var $existUsr = $('#hintExistUsername');
+	var $passSignUp = $('#passwordsignup');
 	
 	$signBtn.attr('disabled','disabled');
 	
@@ -96,6 +97,25 @@ $(document).ready(function(){
 		    $(this).empty();
 		  });
 		  return false;
+		});
+	});
+	
+	$signBtn.on('click', function(){
+		$(function() {
+			$.post("newUser",
+						{ 	username: $username.val(),
+							email: $emailSignUp.val(),
+							password: $passSignUp.val()},
+							function(data){
+								$('#toLogin')[0].click();								
+								var n = noty({
+									text: 'The user '+$username.val()+' created',
+									type:'success',
+									layout: 'bottomRight',
+							  		theme: 'defaultTheme'
+									});
+						}
+					  	, 'json');
 		});
 	});
 });

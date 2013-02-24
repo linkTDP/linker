@@ -21,6 +21,11 @@
         <script src="/linker/resources/js/jQuery.js"></script>
         <script src="/linker/resources/js/login/mailcheck.js"></script>
         <script src="/linker/resources/js/login/login.js"></script>
+        <script type="text/javascript" src="/linker/resources/js/noty/jquery.noty.js"></script>
+
+		<script type="text/javascript" src="/linker/resources/js/noty/layouts/bottomRight.js"></script>
+<!-- You can add more layouts if you want -->
+		<script type="text/javascript" src="/linker/resources/js/noty/themes/default.js"></script>
     </head>
     <body>
         <div class="container">
@@ -33,8 +38,15 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
+                        	
                             <form  action="j_spring_security_check" autocomplete="on" method="POST"> 
-                                <h1>Log in</h1> 
+                                <h1>Log in</h1>
+                                <c:if test="${not empty error}">
+								<div class="errorblock">
+									Your login attempt was not successful<br /> Caused :
+									${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+								</div>
+								</c:if> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your email or username </label>
                                     <input id="username" name="j_username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
@@ -60,7 +72,7 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="newUser" autocomplete="on" commandName="newUser" method="POST"> 
+                            <form  autocomplete="on"> 
                                 <h1> Sign up </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
@@ -80,14 +92,15 @@
                                     <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
+                              </form>
                                 <p class="signin button"> 
                                     <input type="submit" value="Sign up" id="signBtn"/> 
                                 </p>
                                 <p class="change_link">  
                                     Already a member ?
-                                    <a href="#tologin" class="to_register"> Go and log in </a>
+                                    <a id='toLogin' href="#tologin" class="to_register" > Go and log in </a>
                                 </p>
-                            </form>
+                            
                         </div>
                         
                     </div>

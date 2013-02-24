@@ -47,24 +47,34 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	public String loginerror(ModelMap model) {
+ 
+		model.addAttribute("error", "true");
+		return "login";
+ 
+	}
+	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
-	public String newUser(@ModelAttribute("newUser") NewUser newUser,
-			BindingResult result, SessionStatus status) {
+	public @ResponseBody ResponseEntity<String> newUser(@RequestParam(value="username", required=true) String username,
+														@RequestParam(value="email", required=true) String email,
+														@RequestParam(value="password", required=true) String password,														
+														Model model) {
 		logger.info("Adding User Request");
 		
-		logger.info(newUser.getUsernamesignup());
+		logger.info(username);
 		
-		Users u=new Users(newUser.getUsernamesignup(), newUser.getPasswordsignup(), true, newUser.getEmailsignup());
+		Users u=new Users(username, password , true, email);
 		Authorities a=new Authorities(u, "ROLE_USER");
 		
 		userDao.addUser(u);
 		
 		authDao.addAuth(a);
- 
-		//TODO mandare un messaggio!
-		
-		return "login";
+ 		
+		return createJsonResponse( true );
 	}
+	
+	
 	
 	@RequestMapping(value = "/existUsername", method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<String> existUsername(@RequestParam(value="username", required=true) String username,
