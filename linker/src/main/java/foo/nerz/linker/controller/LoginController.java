@@ -5,6 +5,10 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,7 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+
+import com.google.gson.Gson;
 
 import foo.nerz.linker.dao.AuthoritiesDao;
 import foo.nerz.linker.dao.UserDao;
@@ -26,6 +34,8 @@ public class LoginController {
 	UserDao userDao;
 	@Autowired
 	AuthoritiesDao authDao;
+	
+	Gson gson = new Gson();
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
@@ -55,6 +65,35 @@ public class LoginController {
 		
 		return "login";
 	}
+	
+	@RequestMapping(value = "/existUsername", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<String> existUsername(@RequestParam(value="username", required=true) String username,
+    							
+    							Model model) {
+		logger.debug("Received request controll if exist "+username);
+		
+		return createJsonResponse( userDao.existUsername(username) );
+
+	}
+	
+	@RequestMapping(value = "/existMail", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<String> existMail(@RequestParam(value="mail", required=true) String mail,
+    							
+    							Model model) {
+		logger.debug("Received request controll if exist the mail "+mail);
+		
+		return createJsonResponse( userDao.existMail(mail) );
+
+	}
+	
+	
+    private ResponseEntity<String> createJsonResponse( Object o )
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String json = gson.toJson( o );
+        return new ResponseEntity<String>( json, headers, HttpStatus.CREATED );
+    }
 	
 	
 	

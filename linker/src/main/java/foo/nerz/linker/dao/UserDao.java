@@ -48,6 +48,16 @@ public class UserDao {
 		Users u=result.get(0);
 		sessionFactory.getCurrentSession().delete(u);
 	}
+
+	@Transactional
+	public boolean existMail(String mail) {
+		Query query;
+		query=sessionFactory.getCurrentSession().createQuery("From Users where Mail=:mail");
+		query.setParameter("mail", mail);
+		List<Users> result=query.list();
+		if(result.size()>0)return true;
+		else return false;
+	}
 	
 	
 
