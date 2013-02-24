@@ -52,7 +52,7 @@ public class UserDao {
 	@Transactional
 	public boolean existMail(String mail) {
 		Query query;
-		query=sessionFactory.getCurrentSession().createQuery("From Users where Mail=:mail");
+		query=sessionFactory.getCurrentSession().createQuery("From Users where Email=:mail");
 		query.setParameter("mail", mail);
 		List<Users> result=query.list();
 		if(result.size()>0)return true;

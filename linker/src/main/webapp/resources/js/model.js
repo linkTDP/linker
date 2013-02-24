@@ -60,14 +60,7 @@ function model(button, div){
 					  				}
 							}
 						  	, 'json');
-			});
-//			console.log(completed);
-//			if(completed){
-//				myLink.push(current);
-//				new linkItem(jq('#link-display'), myLink[myLink.length-1]);
-//			}
-			
-			
+			});			
 		}
 	});
 	
@@ -88,11 +81,38 @@ function linkItem(linkDisplayDiv, link) {
 	jq('#reference'+ myLink.length).attr('href', link.getAddress());
 	jq('#linkItem'+myLink.length).append('<button id="removeItemBtn">delete</button>');
 	jq('#removeItemBtn').attr('id', 'removeItemBtn'+ myLink.length);
+	jq('#linkItem'+myLink.length).append('<button id="setRead" class="setRead">read</button>');
+	jq('#setRead').attr('id', 'setRead'+ myLink.length);
 	jq('#linkItem'+myLink.length).append('<label id="id" class="id"> </label>');
 	jq('#id').attr('id', 'id'+ myLink.length);
 	jq('#id'+ myLink.length).text(link.getId());
-	jq('#removeItemBtn'+ myLink.length).click(function(){
+	
+	jq('#setRead'+ myLink.length).click(function(){
 		var id = jq(this).next('.id').text();
+		var find = false;
+		var index = 0;	
+		for(var i = 0; i < myLink.length; i++){
+			if(id === myLink[i].getId().toString()){
+				index = i;
+				find = true;
+			}
+		}
+		if(find){
+			jq(function() {
+				jq.post("readed",
+							{ 	id: myLink[index].id},
+								function(data){	
+									
+								}
+						  	, 'json');
+			});
+	
+			
+		}
+	});
+	
+	jq('#removeItemBtn'+ myLink.length).click(function(){
+		var id = jq(this).next('.setRead').next('.id').text();
 		var find = false;
 		var index = 0;	
 		for(var i = 0; i < myLink.length; i++){

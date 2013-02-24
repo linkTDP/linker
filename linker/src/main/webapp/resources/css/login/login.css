@@ -51,7 +51,8 @@ sosituire il check button con l'icona task;*/
   font-size: 3em;
 } */
 
-#hintExistUsername {
+#hintExistUsername,
+#hintExistEmail {
 	color:red;
 }
 
