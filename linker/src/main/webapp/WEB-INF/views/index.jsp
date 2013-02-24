@@ -14,6 +14,9 @@
 		<script type="text/javascript" src="/linker/resources/js/model.js"></script>
 		<script type="text/javascript" src="/linker/resources/js/dialog.js"></script>
 		<script src="/linker/resources/js/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/linker/resources/js/noty/jquery.noty.js"></script>
+		<script type="text/javascript" src="/linker/resources/js/noty/layouts/center.js"></script>
+		<script type="text/javascript" src="/linker/resources/js/noty/themes/default.js"></script>
 	</head>
 	<body>
 		<!--<div id="home">

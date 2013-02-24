@@ -34,6 +34,10 @@ function link(address, title, id, read, date) {
 		this.id = id;
 	};
 	
+	this.getId = function() {
+		return id;
+	};
+	
 	this.setDate = function(date){
 		this.Date = date;
 	};

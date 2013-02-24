@@ -3,7 +3,6 @@ jq(document).ready(function(){
 	var $add = jq('#addBtn');
 	var $home = jq('#home');
 	
-	
 	jq(function() {
 		// Call a URL and pass two arguments
 		// Also pass a call back function
