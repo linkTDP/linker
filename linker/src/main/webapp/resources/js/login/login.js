@@ -3,7 +3,40 @@ $(document).ready(function(){
 	var $hintLogin = $('#hintlogin');
 	var $emailSignUp = $('#emailsignup');
 	var $hintSignUp = $('#hintsignup');
-
+	var $username = $('#usernamesignup');
+	var $signBtn = $('#signBtn');
+	var $existUsr = $('#hintExistUsername');
+	
+	$signBtn.attr('disabled','disabled');
+	
+	$username.on('blur', function(){
+		$(function() {
+			// Call a URL and pass two arguments
+			// Also pass a call back function
+			// See http://api.jquery.com/jQuery.post/
+			// See http://api.jquery.com/jQuery.ajax/
+			// You might find a warning in Firefox: Warning: Unexpected token in attribute selector: '!' 
+			// See http://bugs.jquery.com/ticket/7535
+			$.post("existUsername",
+						{ 	username: $username.val()},
+							function(data){
+								// data contains the result
+								// Assign result to the sum id
+					  			// It's works ;)
+					  			if(data){
+					  				console.log('username già esistente');
+					  				var error = "username already used";
+					  				$existUsr.html(error);
+					  				
+					  				}
+				  				else {
+					  				$signBtn.removeAttr('disabled');
+				  				}
+						}
+					  	, 'json');
+		});
+	});
+	
 	$emailLogin.on('blur', function(){
 		$hintLogin.css('display', 'none');
 		$(this).mailcheck({
@@ -35,6 +68,7 @@ $(document).ready(function(){
 		});
 	});
 	$emailSignUp.on('blur', function(){
+		
 		$hintSignUp.css('display', 'none');
 		$(this).mailcheck({
 			suggested: function(element, suggestion){
@@ -64,5 +98,5 @@ $(document).ready(function(){
 		  return false;
 		});
 	});
-})
+});
 

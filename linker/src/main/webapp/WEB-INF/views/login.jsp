@@ -65,6 +65,7 @@
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
                                     <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                                	<p id="hintExistUsername" color:red></p>
                                 </p>
                                 <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
@@ -80,7 +81,7 @@
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p class="signin button"> 
-                                    <input type="submit" value="Sign up"/> 
+                                    <input type="submit" value="Sign up" id="signBtn"/> 
                                 </p>
                                 <p class="change_link">  
                                     Already a member ?
